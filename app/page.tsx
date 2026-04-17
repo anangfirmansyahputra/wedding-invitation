@@ -173,6 +173,16 @@ function InvitationContent({ to }: { to: string }) {
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
+          {/* Background Image with Dark Overlay */}
+          <div className="absolute inset-0 h-[100vh]">
+            <img
+              src="/assets/DSC00840.jpg"
+              alt="Wedding Background"
+              className="w-full h-full object-cover object-bottom-right grayscale"
+            />
+            <div className="absolute inset-0 bg-black/70"></div>
+          </div>
+
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-[0.02]">
             <div className="absolute inset-0" style={{
