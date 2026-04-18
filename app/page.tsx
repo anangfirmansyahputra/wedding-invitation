@@ -100,6 +100,252 @@ function AnimatedSection({
   );
 }
 
+// Image with loading skeleton component
+function ImageWithLoading({
+  src,
+  alt,
+  className,
+  skeletonClassName = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  skeletonClassName?: string;
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // 🔥 handle image cache (penting)
+  useEffect(() => {
+    if (imgRef.current && imgRef.current.complete) {
+      setIsLoading(false);
+    }
+  }, [src]);
+
+  return (
+    <div className={`relative ${skeletonClassName}`}>
+      {isLoading && !error && (
+        <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center z-10">
+          <div className="flex flex-col items-center gap-2">
+            <svg
+              className="w-6 h-6 text-white/30 animate-spin"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      )}
+
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        className={`transition-opacity duration-500 ${
+          isLoading || error ? "opacity-0" : "opacity-100"
+        } ${className}`}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setError(true);
+        }}
+      />
+
+      {error && (
+        <div className="absolute inset-0 bg-neutral-900/80 flex items-center justify-center">
+          <svg
+            className="w-8 h-8 text-white/20"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Gallery Lightbox component
+function GalleryLightbox({
+  images,
+  currentIndex,
+  isOpen,
+  onClose,
+}: {
+  images: typeof galleryImages;
+  currentIndex: number;
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const [index, setIndex] = useState(currentIndex);
+
+  useEffect(() => {
+    setIndex(currentIndex);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft")
+        setIndex((i) => (i > 0 ? i - 1 : images.length - 1));
+      if (e.key === "ArrowRight")
+        setIndex((i) => (i < images.length - 1 ? i + 1 : 0));
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, images.length]);
+
+  if (!isOpen) return null;
+
+  const goToPrevious = () =>
+    setIndex((i) => (i > 0 ? i - 1 : images.length - 1));
+  const goToNext = () => setIndex((i) => (i < images.length - 1 ? i + 1 : 0));
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm">
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all"
+      >
+        <svg
+          className="w-5 h-5 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+
+      {/* Image counter */}
+      <div className="absolute top-4 left-4 z-10 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+        <p className="text-white/80 text-xs">
+          {index + 1} / {images.length}
+        </p>
+      </div>
+
+      {/* Previous button */}
+      <button
+        onClick={goToPrevious}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all group"
+      >
+        <svg
+          className="w-6 h-6 text-white group-hover:-translate-x-0.5 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      {/* Main image */}
+      <div className="w-full h-full flex items-center justify-center p-8">
+        <img
+          src={images[index].src}
+          alt={images[index].alt}
+          className="max-w-full max-h-full object-contain"
+        />
+      </div>
+
+      {/* Next button */}
+      <button
+        onClick={goToNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all group"
+      >
+        <svg
+          className="w-6 h-6 text-white group-hover:translate-x-0.5 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      {/* Thumbnails */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2 max-w-[90%] overflow-x-auto">
+        {images.map((image, i) => (
+          <button
+            key={image.id}
+            onClick={() => setIndex(i)}
+            className={`flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+              i === index
+                ? "border-white scale-110"
+                : "border-white/20 hover:border-white/50"
+            }`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover"
+            />
+          </button>
+        ))}
+      </div>
+
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          height: 4px;
+        }
+        div::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        div::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 10px;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function InvitationContent({
   to,
   event,
@@ -125,6 +371,8 @@ function InvitationContent({
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleSubmitWish = (e: React.FormEvent) => {
@@ -311,17 +559,17 @@ function InvitationContent({
           >
             {/* Photo Background */}
             <div className="absolute inset-0">
-              <img
+              <ImageWithLoading
                 src="/assets/undangan.jpg"
                 alt="Wedding Couple"
                 className="w-full h-full object-cover"
-                style={{ filter: "grayscale(20%)" }}
+                skeletonClassName="w-full h-full"
               />
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.75) 100%)",
+                    "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0.9) 100%)",
                 }}
               ></div>
             </div>
@@ -579,10 +827,11 @@ function InvitationContent({
             className="relative h-screen flex items-center justify-center px-6"
           >
             <div className="absolute inset-0">
-              <img
+              <ImageWithLoading
                 src="/assets/img/HDVWn.jpg"
                 alt="Welcome"
                 className="w-full h-full object-cover"
+                skeletonClassName="w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/70"></div>
             </div>
@@ -593,15 +842,40 @@ function InvitationContent({
               </p>
               <div className="w-12 h-px bg-white/20 mx-auto mb-6"></div>
 
+              {/* Assalamualaikum */}
               <p className="text-white/70 text-sm font-light mb-2">
+                Assalamualaikum Warahmatullahi Wabarakatuh
+              </p>
+
+              <p className="text-white/70 text-sm font-light mb-4">
                 Kepada Yth.
               </p>
               <h2
-                className="text-3xl font-black text-white mb-8 tracking-tight"
+                className="text-3xl font-black text-white mb-6 tracking-tight"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
                 {to || "Tamu Undangan"}
               </h2>
+
+              {/* QS. Ar-Rum Ayat 21 */}
+              <div className="mb-6 max-w-sm mx-auto">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="h-px w-8 bg-white/20"></div>
+                  <span className="text-white/30 text-[8px]">
+                    QS. Ar-Rum: 21
+                  </span>
+                  <div className="h-px w-8 bg-white/20"></div>
+                </div>
+                <p
+                  className="text-white/80 text-xs italic leading-relaxed"
+                  style={{ fontFamily: "Times New Roman, serif" }}
+                >
+                  "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia
+                  menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya
+                  kamu cenderung dan merasa tenteram kepadanya, dan
+                  dijadikan-Nya diantaramu rasa kasih dan sayang."
+                </p>
+              </div>
 
               <p className="text-white/60 text-xs leading-relaxed mb-4 max-w-xs mx-auto">
                 Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir
@@ -870,15 +1144,26 @@ function InvitationContent({
                 MOMEN KAMI
               </h2>
               <div className="w-12 h-px bg-white/20 mx-auto"></div>
+              <p className="text-white/40 text-[10px] mt-2">
+                Klik foto untuk memperbesar
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              {galleryImages.map((src, index) => (
-                <div key={index} className="overflow-hidden">
-                  <img
-                    src={src.src}
-                    alt={src.alt}
-                    className="w-full aspect-square object-cover border border-white/5 hover:scale-110 transition-all duration-500 hover:border-white/20"
+              {galleryImages.map((image, index) => (
+                <div
+                  key={image.id}
+                  className="overflow-hidden cursor-pointer group"
+                  onClick={() => {
+                    setLightboxIndex(index);
+                    setLightboxOpen(true);
+                  }}
+                >
+                  <ImageWithLoading
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full aspect-square object-cover border border-white/5 group-hover:scale-110 transition-all duration-500 group-hover:border-white/20"
+                    skeletonClassName="w-full aspect-square"
                   />
                 </div>
               ))}
@@ -1200,6 +1485,14 @@ function InvitationContent({
           </footer>
         </div>
       </div>
+
+      {/* Gallery Lightbox */}
+      <GalleryLightbox
+        images={galleryImages}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </>
   );
 }
