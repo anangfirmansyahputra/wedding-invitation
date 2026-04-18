@@ -15,8 +15,8 @@ const sans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Undangan Pernikahan Romeo & Juliet",
-  description: "Undangan pernikahan Romeo & Juliet - 20 Desember 2025",
+  title: "Undangan Pernikahan Anang & Diva",
+  description: "Undangan pernikahan Anang & Diva - 29 Mei 2026",
 };
 
 export default function RootLayout({
