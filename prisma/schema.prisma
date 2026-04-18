@@ -9,13 +9,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Ucapan {
   id     Int          @id @default(autoincrement())
   nama   String
-  ucapan String
+  ucapan String       @db.Text
   status UcapanStatus @default(HADIR)
 
   createdAt DateTime @default(now())

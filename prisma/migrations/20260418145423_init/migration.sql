@@ -1,8 +1,0 @@
--- CreateTable
-CREATE TABLE "Ucapan" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "nama" TEXT NOT NULL,
-    "ucapan" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
-);
