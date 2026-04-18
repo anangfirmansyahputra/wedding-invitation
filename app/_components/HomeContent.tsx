@@ -2,9 +2,11 @@
 
 import { Ucapan, UcapanStatus } from "@/generated/prisma/browser";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState, useTransition } from "react";
 import AnimatedSection from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
+import { createPost } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
 const galleryImages = [
   { id: 1, src: "/assets/img/AEgWD.jpg", alt: "Anang & Diva Wedding" },
@@ -184,7 +186,7 @@ function InvitationContent({
   ucapan,
 }: {
   to: string;
-  event: "akad" | "resepsi" | null;
+  event: "Akad" | "Resepsi" | null;
   ucapan: Ucapan[];
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -204,27 +206,78 @@ function InvitationContent({
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [wishes, setWishes] = useState(ucapan);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const handleSubmitWish = async (formData: FormData) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const result = await createPost(formData);
+
+      if (result.success && result.data) {
+        // Add the new wish to the local state
+        const newWish = {
+          id: result.data.id,
+          nama: result.data.nama,
+          ucapan: result.data.ucapan,
+          status: result.data.status,
+          createdAt: result.data.createdAt,
+          updatedAt: result.data.updatedAt,
+        };
+
+        setWishes([newWish, ...wishes]);
+        setSubmitStatus({
+          type: "success",
+          message: "Ucapan berhasil dikirim!",
+        });
+
+        // Reset form and close after delay
+        setTimeout(() => {
+          setWishForm({ name: to || "", status: "Hadir", message: "" });
+          setShowWishForm(false);
+          setSubmitStatus(null);
+        }, 1500);
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: result.error || "Terjadi kesalahan",
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Terjadi kesalahan saat mengirim ucapan",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Event details
   const eventDetails =
-    event === "akad"
+    event === "Akad"
       ? {
           title: "AKAD NIKAH",
           date: "Sabtu, 29 Mei 2026",
-          time: "08.00 - 10.00 WIB",
-          location: "Masjid Agung Al-Hikmah",
-          address: "Jl. Keberkahan No. 99",
+          time: "15.00 - 17.00 WIB",
+          location: "Grand Santi Hotel",
+          address: "Ballroom Lt. 2",
           countdownDate: new Date("2026-05-29T08:00:00").getTime(),
         }
       : {
-          title: "RESEPSI",
+          title: "Resepsi",
           date: "Sabtu, 29 Mei 2026",
-          time: "15.00 WIB - Selesai",
+          time: "17.00 WIB - Selesai",
           location: "Grand Santi Hotel",
-          address: "Ballroom Lt. 3",
+          address: "Ballroom Lt. 2",
           countdownDate: new Date("2026-05-29T15:00:00").getTime(),
         };
 
@@ -917,9 +970,7 @@ function InvitationContent({
                   </h3>
                   <a
                     href={
-                      event === "akad"
-                        ? "https://www.google.com/maps/search/?api=1&query=Masjid+Agung+Al-Hikmah"
-                        : "https://www.google.com/maps/place/grand+santhi/data=!4m2!3m1!1s0x2dd24094ea62bf41:0xcdde62985b9e300e?sa=X&ved=1t:242&ictx=111"
+                      "https://www.google.com/maps/place/grand+santhi/data=!4m2!3m1!1s0x2dd24094ea62bf41:0xcdde62985b9e300e?sa=X&ved=1t:242&ictx=111"
                     }
                     target="_blank"
                     rel="noopener noreferrer"
@@ -1041,9 +1092,22 @@ function InvitationContent({
             {showWishForm && (
               <div className="mb-8">
                 <form
-                  // action={createPost}
+                  action={handleSubmitWish}
                   className="bg-neutral-900/50 border border-white/10 p-6 space-y-4"
                 >
+                  {/* Status message */}
+                  {submitStatus && (
+                    <div
+                      className={`p-3 text-center text-xs ${
+                        submitStatus.type === "success"
+                          ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+                          : "bg-rose-500/10 border border-rose-500/30 text-rose-400"
+                      }`}
+                    >
+                      {submitStatus.message}
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-white/50 text-[10px] tracking-wider mb-2">
                       NAMA
@@ -1056,7 +1120,8 @@ function InvitationContent({
                         setWishForm({ ...wishForm, name: e.target.value })
                       }
                       placeholder="Nama Anda"
-                      className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-all"
+                      disabled={isSubmitting}
+                      className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-all disabled:opacity-50"
                       required
                     />
                   </div>
@@ -1070,8 +1135,12 @@ function InvitationContent({
                         <button
                           key={status}
                           type="button"
-                          onClick={() => setWishForm({ ...wishForm, status })}
-                          className={`flex-1 py-3 px-4 text-xs font-medium tracking-wider transition-all ${
+                          onClick={() =>
+                            !isSubmitting &&
+                            setWishForm({ ...wishForm, status })
+                          }
+                          disabled={isSubmitting}
+                          className={`flex-1 py-3 px-4 text-xs font-medium tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                             wishForm.status === status
                               ? "bg-white text-black"
                               : "bg-black/50 text-white/50 border border-white/10 hover:border-white/20"
@@ -1081,6 +1150,11 @@ function InvitationContent({
                         </button>
                       ))}
                     </div>
+                    <input
+                      type="hidden"
+                      name="status"
+                      value={wishForm.status}
+                    />
                   </div>
 
                   <div>
@@ -1095,7 +1169,8 @@ function InvitationContent({
                       }
                       placeholder="Tuliskan ucapan dan doa untuk kedua mempelai..."
                       rows={4}
-                      className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-all resize-none"
+                      disabled={isSubmitting}
+                      className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-sm placeholder-white/30 focus:outline-none focus:border-white/30 transition-all resize-none disabled:opacity-50"
                       required
                     />
                   </div>
@@ -1157,7 +1232,7 @@ function InvitationContent({
 
             <div className="flex items-center justify-between mb-6">
               <p className="text-white/40 text-[10px] tracking-wider">
-                {ucapan.length} UCAPAN
+                {wishes.length} UCAPAN
               </p>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
@@ -1167,7 +1242,7 @@ function InvitationContent({
 
             {/* Custom Scrollbar Wishes List */}
             <div className="space-y-3 max-h-96 overflow-y-auto pr-2 wishes-scroll">
-              {ucapan.map((wish) => (
+              {wishes.map((wish) => (
                 <div
                   key={wish.id}
                   className="bg-neutral-950/80 border border-white/10 p-4 hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
@@ -1307,7 +1382,7 @@ function InvitationContent({
 function HomeWrapper({ ucapan }: { ucapan: Ucapan[] }) {
   const searchParams = useSearchParams();
   const to = searchParams.get("to") || "Tamu Undangan";
-  const event = searchParams.get("event") as "akad" | "resepsi" | null;
+  const event = searchParams.get("event") as "Akad" | "Resepsi" | null;
 
   return (
     <Suspense
