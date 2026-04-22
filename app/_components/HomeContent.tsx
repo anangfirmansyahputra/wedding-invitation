@@ -403,7 +403,7 @@ function InvitationContent({
 
         <div className="fixed inset-0 bg-black flex items-center justify-center">
           <div
-            className="relative w-full max-w-md h-screen mx-auto overflow-hidden"
+            className="relative w-full max-w-md h-screen mx-auto overflow-hidden flex flex-col items-center justify-center text-center"
             style={
               isOpening
                 ? {
@@ -425,7 +425,7 @@ function InvitationContent({
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0.9) 100%)",
+                    "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.5) 100%)",
                 }}
               ></div>
             </div>
@@ -446,28 +446,28 @@ function InvitationContent({
               }}
             ></div>
 
-            {/* TOP — Names */}
+            {/* Center Content */}
             <div
-              className="relative z-10 px-10 pt-12"
+              className="relative z-10 px-10"
               style={
                 isOpening
                   ? {
                       animation:
                         "coverTextUp 0.8s cubic-bezier(0.4,0,0.2,1) 0s forwards",
                     }
-                  : {}
+                  : { marginTop: "40px" }
               }
             >
               <p
-                className="text-white/40 mb-5"
+                className="text-white/60 mb-5"
                 style={{
                   fontFamily: "Tenor Sans, sans-serif",
-                  fontSize: "10px",
+                  fontSize: "11px",
                   letterSpacing: "0.35em",
                   textTransform: "uppercase",
                 }}
               >
-                Undangan Pernikahan
+                WEDDING INVITATION
               </p>
               <div
                 style={{
@@ -491,7 +491,7 @@ function InvitationContent({
                   style={{
                     fontSize: "36px",
                     display: "block",
-                    color: "rgba(255,255,255,0.3)",
+                    color: "rgba(255,255,255,0.5)",
                     fontStyle: "normal",
                     fontWeight: 300,
                     marginLeft: "8px",
@@ -514,7 +514,7 @@ function InvitationContent({
 
             {/* Date divider */}
             <div
-              className="relative z-10 flex items-center gap-4 px-10 mt-5"
+              className="relative z-10 flex items-center gap-4 mt-5"
               style={
                 isOpening
                   ? {
@@ -528,25 +528,26 @@ function InvitationContent({
                 className="flex-1"
                 style={{
                   height: "0.5px",
-                  background: "rgba(255,255,255,0.15)",
+                  background: "rgba(255,255,255,0.2)",
                 }}
               ></div>
               <span
                 style={{
                   fontFamily: "Tenor Sans, sans-serif",
-                  fontSize: "10px",
-                  letterSpacing: "0.25em",
-                  color: "rgba(255,255,255,0.4)",
+                  fontSize: "9px",
+                  letterSpacing: "0.2em",
+                  color: "rgba(255,255,255,0.6)",
                   whiteSpace: "nowrap",
+                  lineHeight: "1.4",
                 }}
               >
-                29 · V · 2026
+                OPEN INVITATION
               </span>
               <div
                 className="flex-1"
                 style={{
                   height: "0.5px",
-                  background: "rgba(255,255,255,0.15)",
+                  background: "rgba(255,255,255,0.2)",
                 }}
               ></div>
             </div>
@@ -556,7 +557,7 @@ function InvitationContent({
 
             {/* BOTTOM — Button */}
             <div
-              className="absolute bottom-0 left-0 right-0 z-10 px-10 pb-12"
+              className="relative z-10 pb-12"
               style={
                 isOpening
                   ? {
@@ -571,7 +572,7 @@ function InvitationContent({
                 disabled={isOpening}
                 className="inline-flex items-center gap-3 transition-all duration-300 hover:bg-white/10"
                 style={{
-                  border: "0.5px solid rgba(255,255,255,0.4)",
+                  border: "0.5px solid rgba(255,255,255,0.5)",
                   color: "#fff",
                   fontFamily: "Tenor Sans, sans-serif",
                   fontSize: "10px",
@@ -597,15 +598,17 @@ function InvitationContent({
                 </svg>
               </button>
               <p
-                className="mt-5 text-white/25"
+                className="mt-5 text-white/50"
                 style={{
                   fontFamily: "Tenor Sans, sans-serif",
-                  fontSize: "9px",
-                  letterSpacing: "0.25em",
+                  fontSize: "8px",
+                  letterSpacing: "0.2em",
                   textTransform: "uppercase",
                 }}
               >
-                Sabtu • Grand Santi Hotel
+                Kepada Yth
+                <br />
+                Bapak/Ibu/Saudara/I
               </p>
             </div>
           </div>
@@ -689,41 +692,44 @@ function InvitationContent({
                 className="w-full h-full object-cover"
                 skeletonClassName="w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/70"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/40"></div>
             </div>
 
             <div className="relative z-10 text-center">
-              <p className="text-white/50 text-[10px] tracking-[0.3em] mb-4">
-                UNDANGAN PERNIKAHAN
+              <p className="text-white/70 text-[10px] tracking-[0.3em] mb-4">
+                THE WEDDING OF
               </p>
-              <div className="w-12 h-px bg-white/20 mx-auto mb-6"></div>
+              <div className="w-12 h-px bg-white/30 mx-auto mb-6"></div>
 
-              {/* Assalamualaikum */}
-              <p className="text-white/70 text-sm font-light mb-2">
-                Assalamualaikum Warahmatullahi Wabarakatuh
-              </p>
-
-              <p className="text-white/70 text-sm font-light mb-4">
-                Kepada Yth.
-              </p>
+              {/* Names */}
               <h2
-                className="text-3xl font-black text-white mb-6 tracking-tight"
+                className="text-4xl font-black text-white mb-2 tracking-tight"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
-                {to || "Tamu Undangan"}
+                ANANG &amp; DIVA
               </h2>
+
+              {/* Date */}
+              <p className="text-white/90 text-sm font-light mb-4">
+                Jumat, 29 Mei 2026
+              </p>
+
+              {/* Assalamualaikum */}
+              <p className="text-white/90 text-sm font-light mb-2">
+                Assalamu'alaikum Warahmatullahi Wabarakatuh
+              </p>
 
               {/* QS. Ar-Rum Ayat 21 */}
               <div className="mb-6 max-w-sm mx-auto">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="h-px w-8 bg-white/20"></div>
-                  <span className="text-white/30 text-[8px]">
-                    QS. Ar-Rum: 21
+                  <div className="h-px w-8 bg-white/30"></div>
+                  <span className="text-white/50 text-[8px]">
+                    Surat Ar Rum 21
                   </span>
-                  <div className="h-px w-8 bg-white/20"></div>
+                  <div className="h-px w-8 bg-white/30"></div>
                 </div>
                 <p
-                  className="text-white/80 text-xs italic leading-relaxed"
+                  className="text-white/90 text-xs italic leading-relaxed"
                   style={{ fontFamily: "Times New Roman, serif" }}
                 >
                   "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia
@@ -733,24 +739,24 @@ function InvitationContent({
                 </p>
               </div>
 
-              <p className="text-white/60 text-xs leading-relaxed mb-4 max-w-xs mx-auto">
+              <p className="text-white/80 text-xs leading-relaxed mb-4 max-w-xs mx-auto">
                 Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir
                 dan memberikan doa restu pada pernikahan kami.
               </p>
 
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3">
-                <span className="text-white/60 text-xs">Anda diundang ke:</span>
+              <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 px-6 py-3">
+                <span className="text-white/70 text-xs">Anda diundang ke:</span>
                 <span className="text-white text-sm font-bold tracking-wider">
                   {eventDetails.title}
                 </span>
               </div>
 
               <div className="flex justify-center mt-12 animate-bounce">
-                <p className="text-white/30 text-[10px] tracking-[0.2em] mb-2">
+                <p className="text-white/50 text-[10px] tracking-[0.2em] mb-2">
                   SCROLL
                 </p>
                 <svg
-                  className="w-4 h-4 text-white/30"
+                  className="w-4 h-4 text-white/50"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -778,35 +784,24 @@ function InvitationContent({
                 alt="Anang Firmansyah"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
-                <p className="text-white/50 tracking-[0.3em] text-[10px] mb-4 uppercase font-light">
-                  Mempelai Pria
+                <p className="text-white/70 tracking-[0.3em] text-[10px] mb-4 uppercase font-light">
+                  The Groom
                 </p>
                 <h2
                   className="text-4xl font-black text-white mb-2 tracking-tight"
                   style={{ fontFamily: "Playfair Display, serif" }}
                 >
-                  ANANG
+                  Anang Firmansyah, S.Kom
                 </h2>
-                <h2
-                  className="text-4xl font-black text-white mb-3 tracking-tight"
-                  style={{ fontFamily: "Playfair Display, serif" }}
-                >
-                  FIRMANSYAH
-                </h2>
-                <p className="text-white/60 mb-6 text-sm tracking-wide">
-                  S.Kom
-                </p>
 
                 <div>
-                  <p className="text-white/50 text-[10px] mb-2 tracking-wider">
-                    Putra dari:
+                  <p className="text-white/70 text-[10px] mb-2 tracking-wider">
+                    Putra pertama dari :
                   </p>
-                  <p className="text-white text-sm">Bpk. Sudirman (Alm)</p>
-                  <p className="text-white/60 text-xs">&</p>
-                  <p className="text-white text-sm">Ibu Khoriah</p>
+                  <p className="text-white text-sm">Bapak Sudirman (Alm) &amp; Ibu Khoriah</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -828,35 +823,24 @@ function InvitationContent({
                 alt="Divana Faradila"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
-                <p className="text-white/50 tracking-[0.3em] text-[10px] mb-4 uppercase font-light">
-                  Mempelai Wanita
+                <p className="text-white/70 tracking-[0.3em] text-[10px] mb-4 uppercase font-light">
+                  The Bride
                 </p>
                 <h2
                   className="text-4xl font-black text-white mb-2 tracking-tight"
                   style={{ fontFamily: "Playfair Display, serif" }}
                 >
-                  DIVANA
+                  Divana Faradila, S.Kom
                 </h2>
-                <h2
-                  className="text-4xl font-black text-white mb-3 tracking-tight"
-                  style={{ fontFamily: "Playfair Display, serif" }}
-                >
-                  FARADILA
-                </h2>
-                <p className="text-white/60 mb-6 text-sm tracking-wide">
-                  S.Kom
-                </p>
 
                 <div>
-                  <p className="text-white/50 text-[10px] mb-2 tracking-wider">
-                    Putri dari:
+                  <p className="text-white/70 text-[10px] mb-2 tracking-wider">
+                    Putri Kedua dari :
                   </p>
-                  <p className="text-white text-sm">Bpk. Haririk</p>
-                  <p className="text-white/60 text-xs">&</p>
-                  <p className="text-white text-sm">Ibu Ida Rosalia</p>
+                  <p className="text-white text-sm">Bapak Haririk, SE &amp; Ibu Ida Rosalia</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -918,12 +902,12 @@ function InvitationContent({
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/90 to-black/85"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/55"></div>
             </div>
 
             <div className="relative z-10">
               <div className="text-center mb-10">
-                <p className="text-white/30 tracking-[0.3em] text-[10px] mb-3 uppercase font-light">
+                <p className="text-white/50 tracking-[0.3em] text-[10px] mb-3 uppercase font-light">
                   Acara Pernikahan
                 </p>
                 <h2
@@ -932,10 +916,10 @@ function InvitationContent({
                 >
                   WAKTU & TEMPAT
                 </h2>
-                <div className="w-12 h-px bg-white/20 mx-auto"></div>
+                <div className="w-12 h-px bg-white/30 mx-auto"></div>
               </div>
 
-              <div className="bg-black/50 backdrop-blur-sm border border-white/10 p-8 hover:bg-black/60 transition-all duration-300">
+              <div className="bg-black/50 backdrop-blur-sm border border-white/20 p-8 hover:bg-black/60 transition-all duration-300">
                 <div className="text-center">
                   <div className="text-4xl mb-4">◯</div>
                   <h3
@@ -944,23 +928,23 @@ function InvitationContent({
                   >
                     {eventDetails.title}
                   </h3>
-                  <div className="w-8 h-px bg-white/20 mx-auto mb-6"></div>
+                  <div className="w-8 h-px bg-white/30 mx-auto mb-6"></div>
                   <div className="space-y-3 mb-6">
-                    <p className="text-white/70 text-sm">{eventDetails.date}</p>
-                    <p className="text-white/70 text-sm">{eventDetails.time}</p>
+                    <p className="text-white/90 text-sm">{eventDetails.date}</p>
+                    <p className="text-white/90 text-sm">{eventDetails.time}</p>
                   </div>
-                  <div className="pt-5 border-t border-white/10">
+                  <div className="pt-5 border-t border-white/20">
                     <p className="text-white text-lg mb-1">
                       {eventDetails.location}
                     </p>
-                    <p className="text-white/50 text-xs">
+                    <p className="text-white/70 text-xs">
                       {eventDetails.address}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 bg-black/50 backdrop-blur-sm border border-white/10 p-6 hover:bg-black/60 transition-all duration-300">
+              <div className="mt-6 bg-black/50 backdrop-blur-sm border border-white/20 p-6 hover:bg-black/60 transition-all duration-300">
                 <div className="text-center">
                   <h3
                     className="text-lg font-black text-white mb-3"
