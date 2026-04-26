@@ -1300,10 +1300,6 @@ function InvitationContent({
                 <p className="text-white/40 text-[10px] tracking-wider">
                   {wishes.length} UCAPAN
                 </p>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse"></div>
-                  <p className="text-white/30 text-[10px]">Live</p>
-                </div>
               </div>
 
               {/* Custom Scrollbar Wishes List */}

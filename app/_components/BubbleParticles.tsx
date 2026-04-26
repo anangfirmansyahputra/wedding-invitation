@@ -34,8 +34,8 @@ export default function BubbleParticles() {
 
       constructor() {
         this.radius = Math.random() * 15 + 3; // 3-18px
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + this.radius + Math.random() * 100;
+        this.x = Math.random() * canvas!.width;
+        this.y = canvas!.height + this.radius + Math.random() * 100;
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = -Math.random() * 1 - 0.3; // Upward movement
         this.opacity = Math.random() * 0.4 + 0.2;
@@ -47,35 +47,40 @@ export default function BubbleParticles() {
 
         // Reset if off screen
         if (this.y < -this.radius) {
-          this.y = canvas.height + this.radius + Math.random() * 100;
-          this.x = Math.random() * canvas.width;
+          this.y = canvas!.height + this.radius + Math.random() * 100;
+          this.x = Math.random() * canvas!.width;
         }
       }
 
       draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx?.beginPath();
+        ctx?.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
 
         // Create gradient for bubble effect
-        const gradient = ctx.createRadialGradient(
+        const gradient = ctx?.createRadialGradient(
           this.x - this.radius * 0.3,
           this.y - this.radius * 0.3,
           0,
           this.x,
           this.y,
-          this.radius
+          this.radius,
         );
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity + 0.2})`);
-        gradient.addColorStop(0.5, `rgba(255, 255, 255, ${this.opacity * 0.5})`);
-        gradient.addColorStop(1, `rgba(255, 255, 255, ${this.opacity * 0.1})`);
+        gradient?.addColorStop(0, `rgba(255, 255, 255, ${this.opacity + 0.2})`);
+        gradient?.addColorStop(
+          0.5,
+          `rgba(255, 255, 255, ${this.opacity * 0.5})`,
+        );
+        gradient?.addColorStop(1, `rgba(255, 255, 255, ${this.opacity * 0.1})`);
 
-        ctx.fillStyle = gradient;
-        ctx.fill();
+        if (ctx && gradient) {
+          ctx.fillStyle = gradient;
+          ctx.fill();
 
-        // Add border
-        ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.3})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+          // Add border
+          ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.3})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
       }
     }
 
@@ -116,7 +121,7 @@ export default function BubbleParticles() {
       className="fixed inset-0 pointer-events-none"
       style={{
         zIndex: 1,
-        mixBlendMode: "screen"
+        mixBlendMode: "screen",
       }}
     />
   );
