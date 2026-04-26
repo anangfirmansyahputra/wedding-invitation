@@ -26,19 +26,18 @@ export function AnimatedText({
   animation?: AnimationType;
 }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasAnimated) {
             setTimeout(() => {
               setIsVisible(true);
+              setHasAnimated(true);
             }, delay);
-          } else {
-            // Reset when out of view for re-animation
-            setIsVisible(false);
           }
         });
       },
@@ -59,7 +58,7 @@ export function AnimatedText({
       }
       observer.disconnect();
     };
-  }, [delay]);
+  }, [delay, hasAnimated]);
 
   const animClass = animationClasses[animation];
 

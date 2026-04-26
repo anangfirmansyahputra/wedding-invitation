@@ -1088,21 +1088,18 @@ function InvitationContent({
           {/* RSVP & Wishes */}
           <AnimatedSection
             id="rsvp"
-            className="relative py-20 px-6 bg-black overflow-hidden"
+            className="relative py-20 px-6 overflow-hidden"
           >
-            <ParallaxBackground
-              speed={0.1}
-              className="z-[-1]"
-              disableOnScroll={true}
-            >
+            <ParallaxBackground speed={0.1} disableOnScroll={true}>
               <img
                 src="/assets/img/lYW2M.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
             </ParallaxBackground>
-            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90 z-[-1]"></div>
-            <div>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
+
+            <div className="relative z-10">
               <AnimatedText animation="fade-in" delay={100}>
                 <div className="text-center mb-10">
                   <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
