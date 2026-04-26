@@ -443,7 +443,7 @@ function InvitationContent({
         </audio>
 
         <div className="fixed inset-0 bg-black flex items-center justify-center">
-          <div className="relative w-full max-w-md h-screen mx-auto overflow-hidden flex flex-col items-center justify-center text-center">
+          <div className="relative w-full max-w-md min-h-dvh mx-auto overflow-hidden flex flex-col items-center justify-center text-center">
             {/* Photo Background */}
             <div className="absolute inset-0">
               <ImageWithLoading
