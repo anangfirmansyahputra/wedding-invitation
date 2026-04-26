@@ -2,11 +2,10 @@
 
 import { Ucapan, UcapanStatus } from "@/generated/prisma/browser";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef, useState, useTransition } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import AnimatedSection from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
-import { useRouter } from "next/navigation";
 
 // Welcome Animations Component
 function WelcomeAnimations() {
@@ -125,9 +124,8 @@ const galleryImages = [
   { id: 4, src: "/assets/img/gpYoE.jpg", alt: "Anang & Diva Wedding" },
   { id: 5, src: "/assets/img/SyHNK.jpg", alt: "Anang & Diva Wedding" },
   { id: 6, src: "/assets/img/oupaF.jpg", alt: "Anang & Diva Wedding" },
-  { id: 7, src: "/assets/img/1yMae.jpg", alt: "Anang & Diva Wedding" },
-  { id: 8, src: "/assets/img/lYW2M.jpg", alt: "Anang & Diva Wedding" },
-  { id: 9, src: "/assets/img/9nLEY.jpg", alt: "Anang & Diva Wedding" },
+  { id: 7, src: "/assets/img/lYW2M.jpg", alt: "Anang & Diva Wedding" },
+  { id: 8, src: "/assets/img/9nLEY.jpg", alt: "Anang & Diva Wedding" },
 ];
 
 // Gallery Lightbox component
@@ -718,7 +716,7 @@ function InvitationContent({
                 className="text-white/30 text-2xl font-light"
                 style={{ fontFamily: "Cormorant Garamond, serif" }}
               >
-                &
+                &amp;
               </span>
               <div className="h-px w-16 bg-white/10"></div>
             </AnimatedSection>
@@ -865,7 +863,7 @@ function InvitationContent({
                 </div>
               </div>
 
-              <div className="bg-black/50 backdrop-blur-md border border-white/10 p-8 md:p-10 hover:bg-black/60 transition-all duration-500">
+              <div className="bg-black/50 border border-white/10 p-8 md:p-10 hover:bg-black/60 transition-all duration-500">
                 <div className="text-center">
                   {/* Ornament */}
                   <div className="flex items-center justify-center gap-3 mb-6">
@@ -912,7 +910,7 @@ function InvitationContent({
                 </div>
               </div>
 
-              <div className="mt-6 bg-black/60 backdrop-blur-sm border border-white/10 p-6 hover:bg-black/70 transition-all duration-500">
+              <div className="mt-6 bg-black/60 border border-white/10 p-6 hover:bg-black/70 transition-all duration-500">
                 <div className="text-center">
                   <h3 className="text-sm font-light text-white/60 mb-3 tracking-wider">
                     LOKASI
@@ -967,7 +965,7 @@ function InvitationContent({
             {/* BACKGROUND */}
             <div className="absolute inset-0">
               <img
-                src="/assets/img/VBjtK.jpg"
+                src="/assets/img/1yMae.jpg"
                 alt="Gallery Background"
                 className="w-full h-full object-cover"
               />
@@ -1029,7 +1027,7 @@ function InvitationContent({
           <AnimatedSection id="rsvp" className="relative py-20 px-6 bg-black">
             <div className="absolute inset-0 z-[-1]">
               <img
-                src="/assets/img/VBjtK.jpg"
+                src="/assets/img/lYW2M.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
@@ -1242,7 +1240,7 @@ function InvitationContent({
                 {wishes.map((wish) => (
                   <div
                     key={wish.id}
-                    className="bg-black/60 border border-white/10 p-4 hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
+                    className="bg-black/60 border border-white/10 p-4 hover:border-white/20 transition-all duration-300"
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex items-center gap-2">
@@ -1355,7 +1353,7 @@ function InvitationContent({
                   className="text-white/30 text-2xl font-light"
                   style={{ fontFamily: "Cormorant Garamond, serif" }}
                 >
-                  &
+                  &amp;
                 </span>
                 <div className="h-px w-10 bg-white/10"></div>
               </div>

@@ -14,7 +14,6 @@ export default function AnimatedSection({
   delay?: number;
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,8 +28,8 @@ export default function AnimatedSection({
         });
       },
       {
-        threshold: 0.05,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
       },
     );
 
@@ -47,31 +46,13 @@ export default function AnimatedSection({
     };
   }, [delay]);
 
-  // Parallax effect on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current && isVisible) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const scrolled = window.scrollY;
-        const speed = 0.15;
-        setScrollY(scrolled * speed);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isVisible]);
-
   return (
     <div
       ref={sectionRef}
       id={id}
-      className={`transition-all duration-[1500ms] ease-out ${
-        isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-24 scale-95"
+      className={`transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
       } ${className}`}
-      style={{
-        transform: isVisible ? `translateY(${scrollY * 0.05}px)` : undefined,
-      }}
     >
       {children}
     </div>
