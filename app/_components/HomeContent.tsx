@@ -504,6 +504,7 @@ function InvitationContent({
                     display: "block",
                     letterSpacing: "-0.02em",
                     fontWeight: 600,
+                    color: "white",
                   }}
                 >
                   Anang
@@ -526,6 +527,7 @@ function InvitationContent({
                     display: "block",
                     letterSpacing: "-0.02em",
                     fontWeight: 600,
+                    color: "white",
                   }}
                 >
                   Divana
