@@ -9,6 +9,7 @@ import AnimatedSection, {
 } from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
+import BubbleParticles from "./BubbleParticles";
 
 // Welcome Animations Component
 function WelcomeAnimations() {
@@ -655,6 +656,8 @@ function InvitationContent({
       <audio ref={audioRef} loop preload="auto">
         <source src="/assets/music/paul.mp3" type="audio/mpeg" />
       </audio>
+
+      <BubbleParticles />
 
       <div className="min-h-screen bg-black flex justify-center">
         <div className="w-full max-w-md bg-black relative">
