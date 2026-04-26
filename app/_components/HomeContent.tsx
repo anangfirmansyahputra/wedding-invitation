@@ -3,13 +3,14 @@
 import { Ucapan, UcapanStatus } from "@/generated/prisma/browser";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
-import AnimatedSection from "./AnimatedSection";
+import AnimatedSection, { ParallaxBackground } from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
 
 // Welcome Animations Component
 function WelcomeAnimations() {
   const welcomeRef = useRef<HTMLDivElement>(null);
+  const [bgOffset, setBgOffset] = useState(0);
 
   useEffect(() => {
     const elements = welcomeRef.current?.querySelectorAll(".animate-on-scroll");
@@ -37,17 +38,31 @@ function WelcomeAnimations() {
     return () => observer.disconnect();
   }, []);
 
+  // Parallax effect for welcome background
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      setBgOffset(scrolled * 0.4);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
       ref={welcomeRef}
-      className="relative h-screen flex flex-col px-6 py-16"
+      className="relative h-screen flex flex-col px-6 py-16 overflow-hidden"
     >
       {/* BACKGROUND */}
-      <div className="absolute inset-0">
+      <div
+        className="absolute inset-0 will-change-transform"
+        style={{ transform: `translateY(${bgOffset}px)` }}
+      >
         <ImageWithLoading
           src="/assets/img/HDVWn.jpg"
           alt="Welcome"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-right"
           skeletonClassName="w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/85"></div>
@@ -675,13 +690,15 @@ function InvitationContent({
             {/* Groom */}
             <AnimatedSection
               id="groom"
-              className="relative min-h-screen flex items-end"
+              className="relative min-h-screen flex items-end overflow-hidden"
             >
-              <img
-                src="/assets/img/pengantin-pria.jpg"
-                alt="Anang Firmansyah"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+              <ParallaxBackground speed={0.2}>
+                <img
+                  src="/assets/img/pengantin-pria.jpg"
+                  alt="Anang Firmansyah"
+                  className="w-full h-full object-cover"
+                />
+              </ParallaxBackground>
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
@@ -726,13 +743,15 @@ function InvitationContent({
             {/* Bride */}
             <AnimatedSection
               id="bride"
-              className="relative min-h-screen flex items-end"
+              className="relative min-h-screen flex items-end overflow-hidden"
             >
-              <img
-                src="/assets/img/pengantin-wanita.jpg"
-                alt="Divana Faradila"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+              <ParallaxBackground speed={0.2}>
+                <img
+                  src="/assets/img/pengantin-wanita.jpg"
+                  alt="Divana Faradila"
+                  className="w-full h-full object-cover"
+                />
+              </ParallaxBackground>
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
@@ -766,19 +785,19 @@ function InvitationContent({
             className="relative py-20 px-6 overflow-hidden"
           >
             {/* BACKGROUND IMAGE */}
-            <div className="absolute inset-0">
+            <ParallaxBackground speed={0.15}>
               <img
                 src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
                 alt="Wedding background"
                 className="w-full h-full object-cover"
               />
+            </ParallaxBackground>
 
-              {/* DARK OVERLAY */}
-              <div className="absolute inset-0 bg-black/70"></div>
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-black/70"></div>
 
-              {/* GRADIENT BIAR CINEMATIC */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90"></div>
-            </div>
+            {/* GRADIENT BIAR CINEMATIC */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90"></div>
 
             {/* CONTENT */}
             <div className="relative z-10">
@@ -835,15 +854,18 @@ function InvitationContent({
           </AnimatedSection>
 
           {/* Event Details (Only ONE event based on URL) */}
-          <AnimatedSection id="event" className="relative py-20 px-6">
-            <div className="absolute inset-0">
+          <AnimatedSection
+            id="event"
+            className="relative py-20 px-6 overflow-hidden"
+          >
+            <ParallaxBackground speed={0.1}>
               <img
                 src="/assets/img/VBjtK.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
-            </div>
+            </ParallaxBackground>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
 
             <div className="relative z-10">
               <div className="text-center mb-12">
@@ -965,14 +987,14 @@ function InvitationContent({
             className="py-20 relative px-6 bg-black overflow-hidden"
           >
             {/* BACKGROUND */}
-            <div className="absolute inset-0">
+            <ParallaxBackground speed={0.08}>
               <img
                 src="/assets/img/1yMae.jpg"
                 alt="Gallery Background"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95"></div>
-            </div>
+            </ParallaxBackground>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95"></div>
 
             <div className="relative z-10 max-w-5xl mx-auto">
               {/* HEADER */}
@@ -1026,15 +1048,18 @@ function InvitationContent({
           </AnimatedSection>
 
           {/* RSVP & Wishes */}
-          <AnimatedSection id="rsvp" className="relative py-20 px-6 bg-black">
-            <div className="absolute inset-0 z-[-1]">
+          <AnimatedSection
+            id="rsvp"
+            className="relative py-20 px-6 bg-black overflow-hidden"
+          >
+            <ParallaxBackground speed={0.1} className="z-[-1]">
               <img
                 src="/assets/img/lYW2M.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
-            </div>
+            </ParallaxBackground>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90 z-[-1]"></div>
             <div>
               <div className="text-center mb-10">
                 <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
@@ -1326,16 +1351,16 @@ function InvitationContent({
           {/* Closing */}
           <AnimatedSection
             id="closing"
-            className="py-20 px-6 bg-black text-center relative"
+            className="py-20 px-6 bg-black text-center relative overflow-hidden"
           >
-            <div className="absolute inset-0 z-[-1]">
+            <ParallaxBackground speed={0.1} className="z-[-1]">
               <img
                 src="/assets/img/VBjtK.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
-            </div>
+            </ParallaxBackground>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90 z-[-1]"></div>
 
             <div>
               <p
@@ -1367,14 +1392,14 @@ function InvitationContent({
             className="relative py-20 px-6 text-center overflow-hidden"
           >
             {/* BACKGROUND IMAGE */}
-            <div className="absolute inset-0">
+            <ParallaxBackground speed={0.15}>
               <img
                 src={"/assets/img/DSC00986.jpg"}
                 alt="Wedding Background"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/95"></div>
-            </div>
+            </ParallaxBackground>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/95"></div>
 
             <div className="relative z-10 max-w-xl mx-auto">
               {/* NAMES */}

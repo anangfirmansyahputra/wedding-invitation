@@ -58,3 +58,44 @@ export default function AnimatedSection({
     </div>
   );
 }
+
+// Parallax Background Component - separate layer for parallax effect
+export function ParallaxBackground({
+  children,
+  speed = 0.3,
+  className = "",
+}: {
+  children: React.ReactNode;
+  speed?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const scrolled = window.scrollY;
+        const elementTop = rect.top + scrolled;
+        const relativeScroll = scrolled - elementTop;
+        setOffset(relativeScroll * speed);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [speed]);
+
+  return (
+    <div
+      ref={ref}
+      className={`absolute inset-0 will-change-transform ${className}`}
+      style={{ transform: `translateY(${offset}px)` }}
+    >
+      {children}
+    </div>
+  );
+}
