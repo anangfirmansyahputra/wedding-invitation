@@ -65,7 +65,7 @@ function WelcomeAnimations() {
         <ImageWithLoading
           src="/assets/img/HDVWn.jpg"
           alt="Welcome"
-          className="w-full h-full object-cover object-right"
+          className="w-full h-full object-cover"
           skeletonClassName="w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/85"></div>
@@ -1398,7 +1398,7 @@ function InvitationContent({
               <ImageWithLoading
                 src="/assets/img/VBjtK.jpg"
                 alt="Welcome"
-                className="w-full h-full object-cover object-right"
+                className="w-full h-full object-cover"
                 skeletonClassName="w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/85"></div>
