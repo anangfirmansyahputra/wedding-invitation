@@ -2,38 +2,53 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function AnimatedSection({
-  id,
+type AnimationType = "fade-up" | "fade-down" | "fade-left" | "fade-right" | "fade-in" | "zoom-in";
+
+const animationClasses: Record<AnimationType, { from: string; to: string }> = {
+  "fade-up": { from: "opacity-0 translate-y-8", to: "opacity-100 translate-y-0" },
+  "fade-down": { from: "opacity-0 -translate-y-8", to: "opacity-100 translate-y-0" },
+  "fade-left": { from: "opacity-0 translate-x-8", to: "opacity-100 translate-x-0" },
+  "fade-right": { from: "opacity-0 -translate-x-8", to: "opacity-100 translate-x-0" },
+  "fade-in": { from: "opacity-0", to: "opacity-100" },
+  "zoom-in": { from: "opacity-0 scale-95", to: "opacity-100 scale-100" },
+};
+
+// Animated text/content component
+export function AnimatedText({
   children,
   className = "",
   delay = 0,
+  animation = "fade-up",
 }: {
-  id: string;
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  animation?: AnimationType;
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+          if (entry.isIntersecting) {
             setTimeout(() => {
               setIsVisible(true);
             }, delay);
+          } else {
+            // Reset when out of view for re-animation
+            setIsVisible(false);
           }
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -100px 0px"
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
       },
     );
 
-    const currentRef = sectionRef.current;
+    const currentRef = ref.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
@@ -46,14 +61,33 @@ export default function AnimatedSection({
     };
   }, [delay]);
 
+  const animClass = animationClasses[animation];
+
   return (
     <div
-      ref={sectionRef}
-      id={id}
-      className={`transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? animClass.to : animClass.from
       } ${className}`}
     >
+      {children}
+    </div>
+  );
+}
+
+export default function AnimatedSection({
+  id,
+  children,
+  className = "",
+}: {
+  id: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div ref={sectionRef} id={id} className={className}>
       {children}
     </div>
   );
@@ -64,17 +98,20 @@ export function ParallaxBackground({
   children,
   speed = 0.3,
   className = "",
+  disableOnScroll = false,
 }: {
   children: React.ReactNode;
   speed?: number;
   className?: string;
+  disableOnScroll?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+  const isHoveringWishes = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (ref.current) {
+      if (ref.current && !isHoveringWishes.current) {
         const rect = ref.current.getBoundingClientRect();
         const scrolled = window.scrollY;
         const elementTop = rect.top + scrolled;
@@ -88,6 +125,51 @@ export function ParallaxBackground({
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [speed]);
+
+  // Handle wishes hover detection for disabling parallax
+  useEffect(() => {
+    if (!disableOnScroll) return;
+
+    const handleMouseEnter = () => {
+      isHoveringWishes.current = true;
+    };
+
+    const handleMouseLeave = () => {
+      isHoveringWishes.current = false;
+    };
+
+    // Use event delegation to handle wishes scroll element
+    const addListeners = () => {
+      const wishesElements = document.querySelectorAll(".wishes-scroll");
+      wishesElements.forEach((el) => {
+        el.addEventListener("mouseenter", handleMouseEnter);
+        el.addEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+
+    // Try immediately
+    addListeners();
+
+    // Also try after a delay in case element is not mounted yet
+    const timeoutId = setTimeout(addListeners, 100);
+
+    // Use MutationObserver to watch for new elements
+    const observer = new MutationObserver(() => {
+      addListeners();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+      const wishesElements = document.querySelectorAll(".wishes-scroll");
+      wishesElements.forEach((el) => {
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+  }, [disableOnScroll]);
 
   return (
     <div

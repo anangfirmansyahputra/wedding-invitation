@@ -3,7 +3,10 @@
 import { Ucapan, UcapanStatus } from "@/generated/prisma/browser";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
-import AnimatedSection, { ParallaxBackground } from "./AnimatedSection";
+import AnimatedSection, {
+  ParallaxBackground,
+  AnimatedText,
+} from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
 
@@ -702,26 +705,32 @@ function InvitationContent({
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
-                <p className="text-white/40 tracking-[0.35em] text-[10px] uppercase font-light mb-4">
-                  The Groom
-                </p>
-                <h2
-                  className="text-4xl font-semibold mb-4 tracking-tight text-white"
-                  style={{
-                    fontFamily: "Cormorant Garamond, serif",
-                  }}
-                >
-                  Anang Firmansyah, S.Kom
-                </h2>
+                <AnimatedText animation="fade-right" delay={100}>
+                  <p className="text-white/40 tracking-[0.35em] text-[10px] uppercase font-light mb-4">
+                    The Groom
+                  </p>
+                </AnimatedText>
+                <AnimatedText animation="fade-right" delay={200}>
+                  <h2
+                    className="text-4xl font-semibold mb-4 tracking-tight text-white"
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                    }}
+                  >
+                    Anang Firmansyah, S.Kom
+                  </h2>
+                </AnimatedText>
 
-                <div className="border-l border-white/20 pl-4">
-                  <p className="text-white/50 text-[10px] mb-2 tracking-wider uppercase">
-                    Putra pertama dari
-                  </p>
-                  <p className="text-sm text-white/90">
-                    Bapak Sudirman (Alm) &amp; Ibu Khoriah
-                  </p>
-                </div>
+                <AnimatedText animation="fade-right" delay={300}>
+                  <div className="border-l border-white/20 pl-4">
+                    <p className="text-white/50 text-[10px] mb-2 tracking-wider uppercase">
+                      Putra pertama dari
+                    </p>
+                    <p className="text-sm text-white/90">
+                      Bapak Sudirman (Alm) &amp; Ibu Khoriah
+                    </p>
+                  </div>
+                </AnimatedText>
               </div>
             </AnimatedSection>
 
@@ -730,14 +739,16 @@ function InvitationContent({
               id="couple-divider"
               className="flex items-center justify-center gap-4 py-12 bg-black"
             >
-              <div className="h-px w-16 bg-white/10"></div>
-              <span
-                className="text-white/30 text-2xl font-light"
-                style={{ fontFamily: "Cormorant Garamond, serif" }}
-              >
-                &amp;
-              </span>
-              <div className="h-px w-16 bg-white/10"></div>
+              <AnimatedText animation="fade-in">
+                <div className="h-px w-16 bg-white/10"></div>
+                <span
+                  className="text-white/30 text-2xl font-light"
+                  style={{ fontFamily: "Cormorant Garamond, serif" }}
+                >
+                  &amp;
+                </span>
+                <div className="h-px w-16 bg-white/10"></div>
+              </AnimatedText>
             </AnimatedSection>
 
             {/* Bride */}
@@ -755,26 +766,32 @@ function InvitationContent({
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
 
               <div className="relative z-10 w-full px-6 pb-16">
-                <p className="text-white/40 tracking-[0.35em] text-[10px] uppercase font-light mb-4">
-                  The Bride
-                </p>
-                <h2
-                  className="text-4xl font-semibold mb-4 tracking-tight text-white"
-                  style={{
-                    fontFamily: "Cormorant Garamond, serif",
-                  }}
-                >
-                  Divana Faradila, S.Kom
-                </h2>
+                <AnimatedText animation="fade-left" delay={100}>
+                  <p className="text-white/40 tracking-[0.35em] text-[10px] uppercase font-light mb-4">
+                    The Bride
+                  </p>
+                </AnimatedText>
+                <AnimatedText animation="fade-left" delay={200}>
+                  <h2
+                    className="text-4xl font-semibold mb-4 tracking-tight text-white"
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                    }}
+                  >
+                    Divana Faradila, S.Kom
+                  </h2>
+                </AnimatedText>
 
-                <div className="border-l border-white/20 pl-4">
-                  <p className="text-white/50 text-[10px] mb-2 tracking-wider uppercase">
-                    Putri Kedua dari
-                  </p>
-                  <p className="text-white/90 text-sm font-light">
-                    Bapak Haririk, SE &amp; Ibu Ida Rosalia
-                  </p>
-                </div>
+                <AnimatedText animation="fade-left" delay={300}>
+                  <div className="border-l border-white/20 pl-4">
+                    <p className="text-white/50 text-[10px] mb-2 tracking-wider uppercase">
+                      Putri Kedua dari
+                    </p>
+                    <p className="text-white/90 text-sm font-light">
+                      Bapak Haririk, SE &amp; Ibu Ida Rosalia
+                    </p>
+                  </div>
+                </AnimatedText>
               </div>
             </AnimatedSection>
           </section>
@@ -802,18 +819,22 @@ function InvitationContent({
             {/* CONTENT */}
             <div className="relative z-10">
               <div className="text-center mb-12">
-                <h2
-                  className="text-3xl font-semibold mb-4 tracking-tight text-white"
-                  style={{ fontFamily: "Cormorant Garamond, serif" }}
-                >
-                  COUNTDOWN
-                </h2>
+                <AnimatedText animation="zoom-in" delay={100}>
+                  <h2
+                    className="text-3xl font-semibold mb-4 tracking-tight text-white"
+                    style={{ fontFamily: "Cormorant Garamond, serif" }}
+                  >
+                    COUNTDOWN
+                  </h2>
+                </AnimatedText>
 
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-12 bg-white/10"></div>
-                  <div className="w-1 h-1 bg-white/30"></div>
-                  <div className="h-px w-12 bg-white/10"></div>
-                </div>
+                <AnimatedText animation="fade-in" delay={200}>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-px w-12 bg-white/10"></div>
+                    <div className="w-1 h-1 bg-white/30"></div>
+                    <div className="h-px w-12 bg-white/10"></div>
+                  </div>
+                </AnimatedText>
               </div>
 
               {/* COUNTDOWN */}
@@ -824,32 +845,37 @@ function InvitationContent({
                   { value: countdown.minutes, label: "MENIT" },
                   { value: countdown.seconds, label: "DETIK" },
                 ].map((item, index) => (
-                  <div
+                  <AnimatedText
                     key={index}
-                    className="bg-black/40 backdrop-blur-sm border border-white/10 p-4 text-center hover:bg-black/50 transition-all duration-500"
+                    animation="fade-up"
+                    delay={300 + index * 50}
                   >
-                    <div
-                      className="text-3xl font-light text-white mb-1"
-                      style={{ fontFamily: "Cormorant Garamond, serif" }}
-                    >
-                      {String(item.value).padStart(2, "0")}
-                    </div>
+                    <div className="bg-black/40 backdrop-blur-sm border border-white/10 p-4 text-center hover:bg-black/50 transition-all duration-500">
+                      <div
+                        className="text-3xl font-light text-white mb-1"
+                        style={{ fontFamily: "Cormorant Garamond, serif" }}
+                      >
+                        {String(item.value).padStart(2, "0")}
+                      </div>
 
-                    <p className="text-white/40 text-[10px] tracking-wider">
-                      {item.label}
-                    </p>
-                  </div>
+                      <p className="text-white/40 text-[10px] tracking-wider">
+                        {item.label}
+                      </p>
+                    </div>
+                  </AnimatedText>
                 ))}
               </div>
 
               {/* DATE */}
-              <div className="text-center">
-                <div className="inline-block border border-white/20 px-6 py-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white/70 tracking-[0.15em] text-[10px] font-light">
-                    {eventDetails.date} • {eventDetails.time}
-                  </p>
+              <AnimatedText animation="fade-in" delay={500}>
+                <div className="text-center">
+                  <div className="inline-block border border-white/20 px-6 py-3 bg-black/30 backdrop-blur-sm">
+                    <p className="text-white/70 tracking-[0.15em] text-[10px] font-light">
+                      {eventDetails.date} • {eventDetails.time}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </AnimatedText>
             </div>
           </AnimatedSection>
 
@@ -868,116 +894,122 @@ function InvitationContent({
             <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90"></div>
 
             <div className="relative z-10">
-              <div className="text-center mb-12">
-                <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
-                  Acara Pernikahan
-                </p>
-                <h2
-                  className="text-3xl font-semibold mb-4 tracking-tight text-white"
-                  style={{
-                    fontFamily: "Cormorant Garamond, serif",
-                  }}
-                >
-                  WAKTU &amp; TEMPAT
-                </h2>
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-12 bg-white/10"></div>
-                  <div className="w-1 h-1 bg-white/30"></div>
-                  <div className="h-px w-12 bg-white/10"></div>
-                </div>
-              </div>
-
-              <div className="bg-black/50 border border-white/10 p-8 md:p-10 hover:bg-black/60 transition-all duration-500">
-                <div className="text-center">
-                  {/* Ornament */}
-                  <div className="flex items-center justify-center gap-3 mb-6">
-                    <div className="w-10 h-px bg-white/20"></div>
-                    <span className="text-white/30 text-xs tracking-[0.3em]">
-                      EVENT
-                    </span>
-                    <div className="w-10 h-px bg-white/20"></div>
-                  </div>
-
-                  {/* Title */}
-                  <h3
-                    className="text-2xl md:text-3xl font-semibold text-white mb-6 tracking-tight"
-                    style={{ fontFamily: "Cormorant Garamond, serif" }}
-                  >
-                    {eventDetails.title}
-                  </h3>
-
-                  {/* Date & Time */}
-                  <div className="space-y-1 mb-8">
-                    <p className="text-white/90 text-sm font-light tracking-wide">
-                      {eventDetails.date}
-                    </p>
-                    <p className="text-white/70 text-sm font-light tracking-wide">
-                      {eventDetails.time}
-                    </p>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="w-12 h-px bg-white/10 mx-auto mb-6"></div>
-
-                  {/* Location */}
-                  <div>
-                    <p
-                      className="text-white text-lg mb-1"
-                      style={{ fontFamily: "Cormorant Garamond, serif" }}
-                    >
-                      {eventDetails.location}
-                    </p>
-                    <p className="text-white/50 text-xs leading-relaxed max-w-xs mx-auto">
-                      {eventDetails.address}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 bg-black/60 border border-white/10 p-6 hover:bg-black/70 transition-all duration-500">
-                <div className="text-center">
-                  <h3 className="text-sm font-light text-white/60 mb-3 tracking-wider">
-                    LOKASI
-                  </h3>
-
-                  {/* PLACE NAME */}
-                  <h4
-                    className="text-white text-lg mb-1"
+              <AnimatedText animation="fade-down" delay={100}>
+                <div className="text-center mb-12">
+                  <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
+                    Acara Pernikahan
+                  </p>
+                  <h2
+                    className="text-3xl font-semibold mb-4 tracking-tight text-white"
                     style={{
                       fontFamily: "Cormorant Garamond, serif",
-                      letterSpacing: "0.05em",
                     }}
                   >
-                    The Grand Santhi Hotel
-                  </h4>
-
-                  <p className="text-white/50 text-xs mb-4 tracking-wide">
-                    Denpasar, Bali
-                  </p>
-
-                  {/* MAP */}
-                  <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
-                    <iframe
-                      src="https://www.google.com/maps?q=grand+santhi&output=embed"
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                    ></iframe>
-
-                    {/* overlay biar nyatu sama theme */}
-                    <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+                    WAKTU &amp; TEMPAT
+                  </h2>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-px w-12 bg-white/10"></div>
+                    <div className="w-1 h-1 bg-white/30"></div>
+                    <div className="h-px w-12 bg-white/10"></div>
                   </div>
-
-                  {/* BUTTON */}
-                  <a
-                    href="https://www.google.com/maps/place/grand+santhi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-white text-black font-light py-3 px-8 transition-all hover:bg-white/90 text-xs tracking-wider"
-                  >
-                    BUKA GOOGLE MAPS
-                  </a>
                 </div>
-              </div>
+              </AnimatedText>
+
+              <AnimatedText animation="fade-up" delay={200}>
+                <div className="bg-black/50 border border-white/10 p-8 md:p-10 hover:bg-black/60 transition-all duration-500">
+                  <div className="text-center">
+                    {/* Ornament */}
+                    <div className="flex items-center justify-center gap-3 mb-6">
+                      <div className="w-10 h-px bg-white/20"></div>
+                      <span className="text-white/30 text-xs tracking-[0.3em]">
+                        EVENT
+                      </span>
+                      <div className="w-10 h-px bg-white/20"></div>
+                    </div>
+
+                    {/* Title */}
+                    <h3
+                      className="text-2xl md:text-3xl font-semibold text-white mb-6 tracking-tight"
+                      style={{ fontFamily: "Cormorant Garamond, serif" }}
+                    >
+                      {eventDetails.title}
+                    </h3>
+
+                    {/* Date & Time */}
+                    <div className="space-y-1 mb-8">
+                      <p className="text-white/90 text-sm font-light tracking-wide">
+                        {eventDetails.date}
+                      </p>
+                      <p className="text-white/70 text-sm font-light tracking-wide">
+                        {eventDetails.time}
+                      </p>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="w-12 h-px bg-white/10 mx-auto mb-6"></div>
+
+                    {/* Location */}
+                    <div>
+                      <p
+                        className="text-white text-lg mb-1"
+                        style={{ fontFamily: "Cormorant Garamond, serif" }}
+                      >
+                        {eventDetails.location}
+                      </p>
+                      <p className="text-white/50 text-xs leading-relaxed max-w-xs mx-auto">
+                        {eventDetails.address}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedText>
+
+              <AnimatedText animation="fade-up" delay={300}>
+                <div className="mt-6 bg-black/60 border border-white/10 p-6 hover:bg-black/70 transition-all duration-500">
+                  <div className="text-center">
+                    <h3 className="text-sm font-light text-white/60 mb-3 tracking-wider">
+                      LOKASI
+                    </h3>
+
+                    {/* PLACE NAME */}
+                    <h4
+                      className="text-white text-lg mb-1"
+                      style={{
+                        fontFamily: "Cormorant Garamond, serif",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      The Grand Santhi Hotel
+                    </h4>
+
+                    <p className="text-white/50 text-xs mb-4 tracking-wide">
+                      Denpasar, Bali
+                    </p>
+
+                    {/* MAP */}
+                    <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
+                      <iframe
+                        src="https://www.google.com/maps?q=grand+santhi&output=embed"
+                        className="w-full h-full border-0"
+                        loading="lazy"
+                      ></iframe>
+
+                      {/* overlay biar nyatu sama theme */}
+                      <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+                    </div>
+
+                    {/* BUTTON */}
+                    <a
+                      href="https://www.google.com/maps/place/grand+santhi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-white text-black font-light py-3 px-8 transition-all hover:bg-white/90 text-xs tracking-wider"
+                    >
+                      BUKA GOOGLE MAPS
+                    </a>
+                  </div>
+                </div>
+              </AnimatedText>
             </div>
           </AnimatedSection>
 
@@ -999,26 +1031,32 @@ function InvitationContent({
             <div className="relative z-10 max-w-5xl mx-auto">
               {/* HEADER */}
               <div className="text-center mb-14">
-                <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
-                  Galeri
-                </p>
+                <AnimatedText animation="fade-up" delay={100}>
+                  <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
+                    Galeri
+                  </p>
+                </AnimatedText>
 
-                <h2
-                  className="text-3xl md:text-4xl font-semibold mb-4 tracking-tight text-white"
-                  style={{ fontFamily: "Cormorant Garamond, serif" }}
-                >
-                  MOMEN KAMI
-                </h2>
+                <AnimatedText animation="fade-up" delay={200}>
+                  <h2
+                    className="text-3xl md:text-4xl font-semibold mb-4 tracking-tight text-white"
+                    style={{ fontFamily: "Cormorant Garamond, serif" }}
+                  >
+                    MOMEN KAMI
+                  </h2>
+                </AnimatedText>
 
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-12 bg-white/10"></div>
-                  <div className="w-1 h-1 bg-white/30"></div>
-                  <div className="h-px w-12 bg-white/10"></div>
-                </div>
+                <AnimatedText animation="fade-in" delay={300}>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-px w-12 bg-white/10"></div>
+                    <div className="w-1 h-1 bg-white/30"></div>
+                    <div className="h-px w-12 bg-white/10"></div>
+                  </div>
 
-                <p className="text-white/30 text-[10px] mt-4 font-light tracking-wide">
-                  Klik foto untuk memperbesar
-                </p>
+                  <p className="text-white/30 text-[10px] mt-4 font-light tracking-wide">
+                    Klik foto untuk memperbesar
+                  </p>
+                </AnimatedText>
               </div>
 
               {/* GRID SIMPLE */}
@@ -1052,7 +1090,11 @@ function InvitationContent({
             id="rsvp"
             className="relative py-20 px-6 bg-black overflow-hidden"
           >
-            <ParallaxBackground speed={0.1} className="z-[-1]">
+            <ParallaxBackground
+              speed={0.1}
+              className="z-[-1]"
+              disableOnScroll={true}
+            >
               <img
                 src="/assets/img/lYW2M.jpg"
                 alt="Event Venue"
@@ -1061,28 +1103,30 @@ function InvitationContent({
             </ParallaxBackground>
             <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90 z-[-1]"></div>
             <div>
-              <div className="text-center mb-10">
-                <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
-                  RSVP
-                </p>
-                <h2
-                  className="text-3xl font-semibold mb-4 tracking-tight text-white"
-                  style={{
-                    fontFamily: "Cormorant Garamond, serif",
-                  }}
-                >
-                  UCAPAN &amp; DOA
-                </h2>
-                <div className="flex items-center justify-center gap-3 mb-6">
-                  <div className="h-px w-12 bg-white/10"></div>
-                  <div className="w-1 h-1 bg-white/30"></div>
-                  <div className="h-px w-12 bg-white/10"></div>
+              <AnimatedText animation="fade-in" delay={100}>
+                <div className="text-center mb-10">
+                  <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
+                    RSVP
+                  </p>
+                  <h2
+                    className="text-3xl font-semibold mb-4 tracking-tight text-white"
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                    }}
+                  >
+                    UCAPAN &amp; DOA
+                  </h2>
+                  <div className="flex items-center justify-center gap-3 mb-6">
+                    <div className="h-px w-12 bg-white/10"></div>
+                    <div className="w-1 h-1 bg-white/30"></div>
+                    <div className="h-px w-12 bg-white/10"></div>
+                  </div>
+                  <p className="text-white/50 text-xs font-light">
+                    Sampaikan ucapan hangat, doa, dan harapan untuk kedua
+                    mempelai.
+                  </p>
                 </div>
-                <p className="text-white/50 text-xs font-light">
-                  Sampaikan ucapan hangat, doa, dan harapan untuk kedua
-                  mempelai.
-                </p>
-              </div>
+              </AnimatedText>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
                 <button
@@ -1353,16 +1397,17 @@ function InvitationContent({
             id="closing"
             className="py-20 px-6 bg-black text-center relative overflow-hidden"
           >
-            <ParallaxBackground speed={0.1} className="z-[-1]">
-              <img
+            <div className="absolute inset-0 will-change-transform">
+              <ImageWithLoading
                 src="/assets/img/VBjtK.jpg"
-                alt="Event Venue"
-                className="w-full h-full object-cover"
+                alt="Welcome"
+                className="w-full h-full object-cover object-right"
+                skeletonClassName="w-full h-full"
               />
-            </ParallaxBackground>
-            <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90 z-[-1]"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/85"></div>
+            </div>
 
-            <div>
+            <AnimatedText animation="zoom-in" delay={100}>
               <p
                 className="text-white/80 text-base font-light leading-relaxed mb-6"
                 style={{ fontFamily: "Cormorant Garamond, serif" }}
@@ -1384,7 +1429,7 @@ function InvitationContent({
                 </span>
                 <div className="h-px w-10 bg-white/10"></div>
               </div>
-            </div>
+            </AnimatedText>
           </AnimatedSection>
 
           <AnimatedSection
@@ -1403,38 +1448,46 @@ function InvitationContent({
 
             <div className="relative z-10 max-w-xl mx-auto">
               {/* NAMES */}
-              <p
-                className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4"
-                style={{ fontFamily: "Cormorant Garamond, serif" }}
-              >
-                Anang <span className="text-white/40">&</span> Divana
-              </p>
+              <AnimatedText animation="fade-up" delay={100}>
+                <p
+                  className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4"
+                  style={{ fontFamily: "Cormorant Garamond, serif" }}
+                >
+                  Anang <span className="text-white/40">&</span> Divana
+                </p>
+              </AnimatedText>
 
               {/* DATE */}
-              <p className="text-white/50 text-[11px] tracking-[0.3em] mb-8">
-                29 MEI 2026
-              </p>
+              <AnimatedText animation="fade-up" delay={200}>
+                <p className="text-white/50 text-[11px] tracking-[0.3em] mb-8">
+                  29 MEI 2026
+                </p>
+              </AnimatedText>
 
               {/* DIVIDER */}
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="h-px w-12 bg-white/10"></div>
-                <div className="w-1 h-1 bg-white/30"></div>
-                <div className="h-px w-12 bg-white/10"></div>
-              </div>
+              <AnimatedText animation="fade-in" delay={300}>
+                <div className="flex items-center justify-center gap-3 mb-8">
+                  <div className="h-px w-12 bg-white/10"></div>
+                  <div className="w-1 h-1 bg-white/30"></div>
+                  <div className="h-px w-12 bg-white/10"></div>
+                </div>
+              </AnimatedText>
 
               {/* QUOTE / CLOSING */}
-              <p
-                className="text-white/60 text-xs leading-relaxed font-light max-w-sm mx-auto mb-10"
-                style={{ fontFamily: "Cormorant Garamond, serif" }}
-              >
-                "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan
-                pasangan untukmu agar kamu menemukan ketenangan di dalamnya."
-              </p>
+              <AnimatedText animation="fade-in" delay={400}>
+                <p
+                  className="text-white/60 text-xs leading-relaxed font-light max-w-sm mx-auto mb-10"
+                  style={{ fontFamily: "Cormorant Garamond, serif" }}
+                >
+                  "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan
+                  pasangan untukmu agar kamu menemukan ketenangan di dalamnya."
+                </p>
 
-              {/* SMALL TEXT */}
-              <p className="text-white/30 text-[10px] tracking-wide">
-                Terima kasih atas doa dan kehadiran Anda
-              </p>
+                {/* SMALL TEXT */}
+                <p className="text-white/30 text-[10px] tracking-wide">
+                  Terima kasih atas doa dan kehadiran Anda
+                </p>
+              </AnimatedText>
             </div>
           </AnimatedSection>
         </div>
