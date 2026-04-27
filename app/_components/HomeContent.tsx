@@ -723,7 +723,10 @@ function InvitationContent({
               id="couple-divider"
               className="flex items-center justify-center gap-4 py-12 bg-black"
             >
-              <AnimatedText animation="fade-in">
+              <AnimatedText
+                animation="fade-in"
+                className="w-full flex flex-col items-center justify-center"
+              >
                 <div className="h-px w-16 bg-white/10"></div>
                 <span
                   className="text-white/30 text-2xl font-light"
@@ -870,7 +873,7 @@ function InvitationContent({
           >
             <ParallaxBackground speed={0.1}>
               <img
-                src="/assets/img/VBjtK.jpg"
+                src="/assets/img/DSC01007.jpg"
                 alt="Event Venue"
                 className="w-full h-full object-cover"
               />
@@ -909,10 +912,10 @@ function InvitationContent({
 
                     <div className="relative overflow-hidden rounded-lg">
                       <ImageWithLoading
-                        src="/assets/img/VBjtK.jpg"
+                        src="/assets/img/DSC01007.jpg"
                         alt="Event Venue"
-                        className="w-full aspect-[4/5] object-cover"
-                        skeletonClassName="w-full aspect-[4/5]"
+                        className="w-full aspect-video object-cover"
+                        skeletonClassName="w-full aspect-video"
                       />
                     </div>
                   </div>
