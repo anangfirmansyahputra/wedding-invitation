@@ -9,7 +9,6 @@ import AnimatedSection, {
 } from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
-import BubbleParticles from "./BubbleParticles";
 
 // Welcome Animations Component
 function WelcomeAnimations() {
@@ -56,7 +55,7 @@ function WelcomeAnimations() {
 
         <AnimatedText animation="zoom-in" delay={400}>
           <h2
-            className="text-4xl md:text-6xl text-white tracking-tight flex items-center justify-center gap-4"
+            className="text-5xl text-white tracking-tight flex items-center justify-center gap-4"
             style={{
               fontFamily: "Great Vibes, Playfair Display, serif",
             }}
@@ -110,9 +109,9 @@ function WelcomeAnimations() {
             "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
             pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
             dan merasa tenteram (sakinah) kepadanya, dan Dia menjadikan di
-            antaramu rasa kasih (mawaddah) dan sayang (rahmah). Sungguh, pada yang
-            demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi
-            kaum yang berpikir"
+            antaramu rasa kasih (mawaddah) dan sayang (rahmah). Sungguh, pada
+            yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah)
+            bagi kaum yang berpikir"
           </p>
         </div>
       </AnimatedText>
@@ -641,8 +640,6 @@ function InvitationContent({
         <source src="/assets/music/paul.mp3" type="audio/mpeg" />
       </audio>
 
-      <BubbleParticles />
-
       <div className="min-h-screen bg-black flex justify-center">
         <div className="w-full max-w-md bg-black relative">
           {/* Music Control Button */}
@@ -1046,36 +1043,33 @@ function InvitationContent({
                 </AnimatedText>
               </div>
 
-              {/* BENTO GRID - NO PADDING */}
-              <div className="grid grid-cols-4 grid-rows-2">
-                {galleryImages.map((image, index) => {
-                  const spanClass = index === 0
-                    ? "col-span-2 row-span-2"
-                    : index === 1
-                    ? "col-span-2 row-span-1"
-                    : "col-span-1 row-span-1";
-
-                  return (
+              {/* GRID SIMPLE - NO PADDING */}
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-0">
+                {galleryImages.map((image, index) => (
+                  <AnimatedText
+                    key={image.id}
+                    animation="zoom-in"
+                    delay={400 + index * 80}
+                  >
                     <div
-                      key={image.id}
                       onClick={() => {
                         setLightboxIndex(index);
                         setLightboxOpen(true);
                       }}
-                      className={`relative overflow-hidden group cursor-pointer hover:border-white/20 transition-all duration-300 ${spanClass}`}
+                      className="relative overflow-hidden group cursor-pointer hover:border-white/20 transition-all duration-300"
                     >
                       <ImageWithLoading
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                        skeletonClassName="w-full h-full"
+                        className="w-full aspect-square object-cover group-hover:scale-105 transition duration-500"
+                        skeletonClassName="w-full aspect-square"
                       />
 
                       {/* overlay hover */}
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition"></div>
                     </div>
-                  );
-                })}
+                  </AnimatedText>
+                ))}
               </div>
             </div>
           </AnimatedSection>
@@ -1397,26 +1391,13 @@ function InvitationContent({
 
             <AnimatedText animation="zoom-in" delay={100}>
               <p
-                className="text-white/80 text-base font-light leading-relaxed mb-6"
+                className="text-white/80 text-base mt-20 font-light leading-relaxed mb-6"
                 style={{ fontFamily: "Cormorant Garamond, serif" }}
               >
                 Merupakan suatu kebahagiaan bagi kami apabila
                 Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu
                 kepada kami.
               </p>
-              <p className="text-white/50 text-xs mb-8 font-light">
-                Wassalamualaikum Warahmatullahi Wabarakatuh
-              </p>
-              <div className="flex items-center justify-center gap-3">
-                <div className="h-px w-10 bg-white/10"></div>
-                <span
-                  className="text-white/30 text-2xl font-light"
-                  style={{ fontFamily: "Cormorant Garamond, serif" }}
-                >
-                  &amp;
-                </span>
-                <div className="h-px w-10 bg-white/10"></div>
-              </div>
             </AnimatedText>
           </AnimatedSection>
 
@@ -1438,7 +1419,7 @@ function InvitationContent({
               {/* NAMES */}
               <AnimatedText animation="fade-up" delay={100}>
                 <p
-                  className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4"
+                  className="text-3xl font-semibold text-white tracking-tight mb-4"
                   style={{ fontFamily: "Cormorant Garamond, serif" }}
                 >
                   Anang <span className="text-white/40">&</span> Divana
@@ -1459,22 +1440,6 @@ function InvitationContent({
                   <div className="w-1 h-1 bg-white/30"></div>
                   <div className="h-px w-12 bg-white/10"></div>
                 </div>
-              </AnimatedText>
-
-              {/* QUOTE / CLOSING */}
-              <AnimatedText animation="fade-in" delay={400}>
-                <p
-                  className="text-white/60 text-xs leading-relaxed font-light max-w-sm mx-auto mb-10"
-                  style={{ fontFamily: "Cormorant Garamond, serif" }}
-                >
-                  "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan
-                  pasangan untukmu agar kamu menemukan ketenangan di dalamnya."
-                </p>
-
-                {/* SMALL TEXT */}
-                <p className="text-white/30 text-[10px] tracking-wide">
-                  Terima kasih atas doa dan kehadiran Anda
-                </p>
               </AnimatedText>
             </div>
           </AnimatedSection>
