@@ -904,22 +904,6 @@ function InvitationContent({
 
               <div className="max-w-sm mx-auto">
                 {/* PHOTO WITH FRAME */}
-                <AnimatedText animation="fade-up" delay={200}>
-                  <div className="relative mb-6">
-                    {/* Decorative frame */}
-                    <div className="absolute -inset-3 border border-white/10 rounded-lg"></div>
-                    <div className="absolute -inset-2 border border-white/5 rounded-lg"></div>
-
-                    <div className="relative overflow-hidden rounded-lg">
-                      <ImageWithLoading
-                        src="/assets/img/DSC01007.jpg"
-                        alt="Event Venue"
-                        className="w-full aspect-video object-cover"
-                        skeletonClassName="w-full aspect-video"
-                      />
-                    </div>
-                  </div>
-                </AnimatedText>
 
                 {/* EVENT INFO */}
                 <AnimatedText animation="fade-up" delay={300}>
