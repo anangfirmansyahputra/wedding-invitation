@@ -16,32 +16,6 @@ function WelcomeAnimations() {
   const welcomeRef = useRef<HTMLDivElement>(null);
   const [bgOffset, setBgOffset] = useState(0);
 
-  useEffect(() => {
-    const elements = welcomeRef.current?.querySelectorAll(".animate-on-scroll");
-    if (!elements) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = parseInt(
-              (entry.target as HTMLElement).dataset.delay || "0",
-            );
-            setTimeout(() => {
-              (entry.target as HTMLElement).classList.add("visible");
-            }, delay);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   // Parallax effect for welcome background
   useEffect(() => {
     const handleScroll = () => {
@@ -74,64 +48,74 @@ function WelcomeAnimations() {
 
       {/* TOP CONTENT */}
       <div className="relative z-10 text-center space-y-5">
-        <p className="text-white/50 text-[10px] tracking-[0.35em]">
-          THE WEDDING OF
-        </p>
+        <AnimatedText animation="fade-down" delay={200}>
+          <p className="text-white/50 text-[10px] tracking-[0.35em]">
+            THE WEDDING OF
+          </p>
+        </AnimatedText>
 
-        <h2
-          className="text-4xl md:text-5xl text-white tracking-tight flex items-center justify-center gap-4"
-          style={{
-            fontFamily: "Great Vibes, Playfair Display, serif",
-          }}
-        >
-          <span>Anang</span>
-          <span className="text-white/40 text-lg">&</span>
-          <span>Divana</span>
-        </h2>
+        <AnimatedText animation="zoom-in" delay={400}>
+          <h2
+            className="text-4xl md:text-6xl text-white tracking-tight flex items-center justify-center gap-4"
+            style={{
+              fontFamily: "Great Vibes, Playfair Display, serif",
+            }}
+          >
+            <span>Anang</span>
+            <span className="text-white/40 text-lg md:text-xl">&</span>
+            <span>Divana</span>
+          </h2>
+        </AnimatedText>
 
         {/* DATE */}
-        <div className="flex items-center justify-center gap-4">
-          <div className="h-px w-10 bg-white/20"></div>
-          <span className="text-white/70 text-xs tracking-[0.25em]">
-            29.05.2026
-          </span>
-          <div className="h-px w-10 bg-white/20"></div>
-        </div>
+        <AnimatedText animation="fade-up" delay={600}>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-px w-10 bg-white/20"></div>
+            <span className="text-white/70 text-xs tracking-[0.25em]">
+              29.05.2026
+            </span>
+            <div className="h-px w-10 bg-white/20"></div>
+          </div>
+        </AnimatedText>
 
         {/* GREETING */}
-        <p
-          className="text-white/80 text-sm font-light"
-          style={{ fontFamily: "Cormorant Garamond, serif" }}
-        >
-          Assalamu'alaikum Warahmatullahi Wabarakatuh
-        </p>
+        <AnimatedText animation="fade-in" delay={800}>
+          <p
+            className="text-white/80 text-sm md:text-base font-light"
+            style={{ fontFamily: "Cormorant Garamond, serif" }}
+          >
+            Assalamu'alaikum Warahmatullahi Wabarakatuh
+          </p>
+        </AnimatedText>
       </div>
 
       {/* PUSH BOTTOM */}
       <div className="mt-auto"></div>
 
       {/* BOTTOM (AR-RUM) */}
-      <div className="relative z-10 text-center max-w-sm mx-auto mb-6">
-        <div className="flex items-center justify-center gap-3 mb-2">
-          <div className="h-px w-10 bg-white/20"></div>
-          <span className="text-white/40 text-[9px] tracking-wider">
-            Ar-Rum: 21
-          </span>
-          <div className="h-px w-10 bg-white/20"></div>
-        </div>
+      <AnimatedText animation="fade-up" delay={1000}>
+        <div className="relative z-10 text-center max-w-sm mx-auto mb-6">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="h-px w-10 bg-white/20"></div>
+            <span className="text-white/40 text-[9px] tracking-wider">
+              Ar-Rum: 21
+            </span>
+            <div className="h-px w-10 bg-white/20"></div>
+          </div>
 
-        <p
-          className="text-white/70 text-xs italic leading-relaxed font-light"
-          style={{ fontFamily: "Cormorant Garamond, serif" }}
-        >
-          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
-          pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
-          dan merasa tenteram (sakinah) kepadanya, dan Dia menjadikan di
-          antaramu rasa kasih (mawaddah) dan sayang (rahmah). Sungguh, pada yang
-          demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi
-          kaum yang berpikir"
-        </p>
-      </div>
+          <p
+            className="text-white/70 text-xs italic leading-relaxed font-light"
+            style={{ fontFamily: "Cormorant Garamond, serif" }}
+          >
+            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+            pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
+            dan merasa tenteram (sakinah) kepadanya, dan Dia menjadikan di
+            antaramu rasa kasih (mawaddah) dan sayang (rahmah). Sungguh, pada yang
+            demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi
+            kaum yang berpikir"
+          </p>
+        </div>
+      </AnimatedText>
     </div>
   );
 }
@@ -1019,7 +1003,7 @@ function InvitationContent({
           {/* Gallery */}
           <AnimatedSection
             id="gallery"
-            className="py-20 relative px-6 bg-black overflow-hidden"
+            className="py-20 relative bg-black overflow-hidden"
           >
             {/* BACKGROUND */}
             <ParallaxBackground speed={0.08}>
@@ -1031,9 +1015,9 @@ function InvitationContent({
             </ParallaxBackground>
             <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95"></div>
 
-            <div className="relative z-10 max-w-5xl mx-auto">
+            <div className="relative z-10">
               {/* HEADER */}
-              <div className="text-center mb-14">
+              <div className="text-center mb-14 px-6">
                 <AnimatedText animation="fade-up" delay={100}>
                   <p className="text-white/40 tracking-[0.35em] text-[10px] mb-4 uppercase font-light">
                     Galeri
@@ -1062,28 +1046,36 @@ function InvitationContent({
                 </AnimatedText>
               </div>
 
-              {/* GRID SIMPLE */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {galleryImages.map((image, index) => (
-                  <div
-                    key={image.id}
-                    onClick={() => {
-                      setLightboxIndex(index);
-                      setLightboxOpen(true);
-                    }}
-                    className="relative overflow-hidden rounded-lg group cursor-pointer border border-white/10 hover:border-white/20 transition-all duration-300"
-                  >
-                    <ImageWithLoading
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full aspect-square object-cover group-hover:scale-105 transition duration-500"
-                      skeletonClassName="w-full aspect-square"
-                    />
+              {/* BENTO GRID - NO PADDING */}
+              <div className="grid grid-cols-4 grid-rows-2">
+                {galleryImages.map((image, index) => {
+                  const spanClass = index === 0
+                    ? "col-span-2 row-span-2"
+                    : index === 1
+                    ? "col-span-2 row-span-1"
+                    : "col-span-1 row-span-1";
 
-                    {/* overlay hover */}
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition"></div>
-                  </div>
-                ))}
+                  return (
+                    <div
+                      key={image.id}
+                      onClick={() => {
+                        setLightboxIndex(index);
+                        setLightboxOpen(true);
+                      }}
+                      className={`relative overflow-hidden group cursor-pointer hover:border-white/20 transition-all duration-300 ${spanClass}`}
+                    >
+                      <ImageWithLoading
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        skeletonClassName="w-full h-full"
+                      />
+
+                      {/* overlay hover */}
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition"></div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </AnimatedSection>
