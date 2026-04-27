@@ -788,7 +788,7 @@ function InvitationContent({
             {/* BACKGROUND IMAGE */}
             <ParallaxBackground speed={0.15}>
               <img
-                src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
+                src={"/assets/img/DSC01070.jpg"}
                 alt="Wedding background"
                 className="w-full h-full object-cover"
               />
@@ -798,7 +798,7 @@ function InvitationContent({
             <div className="absolute inset-0 bg-black/70"></div>
 
             {/* GRADIENT BIAR CINEMATIC */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/90"></div>
 
             {/* CONTENT */}
             <div className="relative z-10">
@@ -899,101 +899,106 @@ function InvitationContent({
                 </div>
               </AnimatedText>
 
-              <AnimatedText animation="fade-up" delay={200}>
-                <div className="bg-black/50 border border-white/10 p-8 md:p-10 hover:bg-black/60 transition-all duration-500">
-                  <div className="text-center">
-                    {/* Ornament */}
-                    <div className="flex items-center justify-center gap-3 mb-6">
-                      <div className="w-10 h-px bg-white/20"></div>
-                      <span className="text-white/30 text-xs tracking-[0.3em]">
-                        EVENT
-                      </span>
-                      <div className="w-10 h-px bg-white/20"></div>
-                    </div>
+              <div className="max-w-sm mx-auto">
+                {/* PHOTO WITH FRAME */}
+                <AnimatedText animation="fade-up" delay={200}>
+                  <div className="relative mb-6">
+                    {/* Decorative frame */}
+                    <div className="absolute -inset-3 border border-white/10 rounded-lg"></div>
+                    <div className="absolute -inset-2 border border-white/5 rounded-lg"></div>
 
+                    <div className="relative overflow-hidden rounded-lg">
+                      <ImageWithLoading
+                        src="/assets/img/VBjtK.jpg"
+                        alt="Event Venue"
+                        className="w-full aspect-[4/5] object-cover"
+                        skeletonClassName="w-full aspect-[4/5]"
+                      />
+                    </div>
+                  </div>
+                </AnimatedText>
+
+                {/* EVENT INFO */}
+                <AnimatedText animation="fade-up" delay={300}>
+                  <div className="text-center space-y-5">
                     {/* Title */}
                     <h3
-                      className="text-2xl md:text-3xl font-semibold text-white mb-6 tracking-tight"
+                      className="text-2xl font-light text-white tracking-wide"
                       style={{ fontFamily: "Cormorant Garamond, serif" }}
                     >
                       {eventDetails.title}
                     </h3>
 
-                    {/* Date & Time */}
-                    <div className="space-y-1 mb-8">
-                      <p className="text-white/90 text-sm font-light tracking-wide">
-                        {eventDetails.date}
-                      </p>
-                      <p className="text-white/70 text-sm font-light tracking-wide">
-                        {eventDetails.time}
-                      </p>
+                    {/* Divider */}
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="h-px w-8 bg-white/10"></div>
+                      <div className="w-1 h-1 bg-white/20"></div>
+                      <div className="h-px w-8 bg-white/10"></div>
                     </div>
 
-                    {/* Divider */}
-                    <div className="w-12 h-px bg-white/10 mx-auto mb-6"></div>
+                    {/* Date */}
+                    <div>
+                      <p className="text-white/30 text-[9px] tracking-[0.3em] mb-2 uppercase">
+                        TANGGAL
+                      </p>
+                      <p className="text-white text-sm">{eventDetails.date}</p>
+                    </div>
+
+                    {/* Time */}
+                    <div>
+                      <p className="text-white/30 text-[9px] tracking-[0.3em] mb-2 uppercase">
+                        WAKTU
+                      </p>
+                      <p className="text-white text-sm">{eventDetails.time}</p>
+                    </div>
 
                     {/* Location */}
                     <div>
+                      <p className="text-white/30 text-[9px] tracking-[0.3em] mb-2 uppercase">
+                        LOKASI
+                      </p>
                       <p
-                        className="text-white text-lg mb-1"
+                        className="text-white text-base mb-1"
                         style={{ fontFamily: "Cormorant Garamond, serif" }}
                       >
                         {eventDetails.location}
                       </p>
-                      <p className="text-white/50 text-xs leading-relaxed max-w-xs mx-auto">
+                      <p className="text-white/50 text-xs">
                         {eventDetails.address}
                       </p>
                     </div>
-                  </div>
-                </div>
-              </AnimatedText>
 
-              <AnimatedText animation="fade-up" delay={300}>
-                <div className="mt-6 bg-black/60 border border-white/10 p-6 hover:bg-black/70 transition-all duration-500">
-                  <div className="text-center">
-                    <h3 className="text-sm font-light text-white/60 mb-3 tracking-wider">
-                      LOKASI
-                    </h3>
-
-                    {/* PLACE NAME */}
-                    <h4
-                      className="text-white text-lg mb-1"
-                      style={{
-                        fontFamily: "Cormorant Garamond, serif",
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      The Grand Santhi Hotel
-                    </h4>
-
-                    <p className="text-white/50 text-xs mb-4 tracking-wide">
-                      Denpasar, Bali
-                    </p>
-
-                    {/* MAP */}
-                    <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
-                      <iframe
-                        src="https://www.google.com/maps?q=grand+santhi&output=embed"
-                        className="w-full h-full border-0"
-                        loading="lazy"
-                      ></iframe>
-
-                      {/* overlay biar nyatu sama theme */}
-                      <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
-                    </div>
-
-                    {/* BUTTON */}
+                    {/* Maps Button */}
                     <a
                       href="https://www.google.com/maps/place/grand+santhi"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-white text-black font-light py-3 px-8 transition-all hover:bg-white/90 text-xs tracking-wider"
+                      className="inline-flex items-center gap-2 bg-white text-black font-light py-3 px-8 transition-all hover:bg-white/90 text-xs tracking-wider mt-4"
                     >
-                      BUKA GOOGLE MAPS
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                      <span>GOOGLE MAPS</span>
                     </a>
                   </div>
-                </div>
-              </AnimatedText>
+                </AnimatedText>
+              </div>
             </div>
           </AnimatedSection>
 
