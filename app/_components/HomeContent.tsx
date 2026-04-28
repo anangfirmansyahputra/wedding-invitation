@@ -128,9 +128,9 @@ const galleryImages = [
   { id: 6, src: "/assets/img/gpYoE2.jpg", alt: "Anang & Diva Wedding" },
   { id: 7, src: "/assets/img/lYW2M.jpg", alt: "Anang & Diva Wedding" },
   { id: 8, src: "/assets/img/9nLEY.jpg", alt: "Anang & Diva Wedding" },
-  { id: 9, src: "/assets/img/DSC01525.jpg", alt: "Anang & Diva Wedding" },
-  { id: 10, src: "/assets/img/DSC011291.jpg", alt: "Anang & Diva Wedding" },
-  { id: 11, src: "/assets/img/DSC009781.jpg", alt: "Anang & Diva Wedding" },
+  { id: 9, src: "/assets/img/DSC015251.jpg", alt: "Anang & Diva Wedding" },
+  { id: 10, src: "/assets/img/DSC0112911.jpg", alt: "Anang & Diva Wedding" },
+  { id: 11, src: "/assets/img/DSC0097811.jpg", alt: "Anang & Diva Wedding" },
   { id: 12, src: "/assets/img/DSC01596.jpg", alt: "Anang & Diva Wedding" },
   {
     id: 13,
