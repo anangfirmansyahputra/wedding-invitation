@@ -142,10 +142,10 @@ const galleryImages = [
     src: "/assets/img/WhatsAppImage2026-04-28at16.17.48.jpeg",
     alt: "Anang & Diva Wedding",
   },
-  { id: 15, src: "/assets/img/DSC00868 (1).jpg", alt: "Anang & Diva Wedding" },
-  { id: 16, src: "/assets/img/DSC01503 (1).jpg", alt: "Anang & Diva Wedding" },
-  { id: 17, src: "/assets/img/DSC00984 (1).jpg", alt: "Anang & Diva Wedding" },
-  { id: 18, src: "/assets/img/DSC00862 (1).jpg", alt: "Anang & Diva Wedding" },
+  { id: 15, src: "/assets/img/DSC00868.jpg", alt: "Anang & Diva Wedding" },
+  { id: 16, src: "/assets/img/DSC01503.jpg", alt: "Anang & Diva Wedding" },
+  { id: 17, src: "/assets/img/DSC00984.jpg", alt: "Anang & Diva Wedding" },
+  { id: 18, src: "/assets/img/DSC00862.jpg", alt: "Anang & Diva Wedding" },
 ];
 
 // Gallery Lightbox component
