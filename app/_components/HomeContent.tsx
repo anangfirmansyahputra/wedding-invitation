@@ -975,7 +975,7 @@ function InvitationContent({
 
                     {/* Maps Button */}
                     <a
-                      href="https://www.google.com/maps/place/grand+santhi"
+                      href="https://www.google.com/maps/place/The+Grand+Santhi+Hotel/@-8.6685511,115.213637,17z/data=!4m9!3m8!1s0x2dd24094ea62bf41:0xcdde62985b9e300e!5m2!4m1!1i2!8m2!3d-8.6685511!4d115.2162119!16s%2Fg%2F1vwgyc9v?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-white text-black font-light py-3 px-8 transition-all hover:bg-white/90 text-xs tracking-wider mt-4"
