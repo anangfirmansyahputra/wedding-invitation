@@ -9,6 +9,7 @@ import AnimatedSection, {
 } from "./AnimatedSection";
 import ImageWithLoading from "./ImageWithLoading";
 import { createPost } from "@/app/actions";
+import { MUSIC } from "@/constant";
 
 // Welcome Animations Component
 function WelcomeAnimations() {
@@ -125,8 +126,6 @@ const galleryImages = [
   { id: 3, src: "/assets/img/iTIcJ.jpg", alt: "Anang & Diva Wedding" },
   { id: 4, src: "/assets/img/gpYoE.jpg", alt: "Anang & Diva Wedding" },
   { id: 5, src: "/assets/img/gpYoE1.jpg", alt: "Anang & Diva Wedding" },
-  { id: 6, src: "/assets/img/gpYoE2.jpg", alt: "Anang & Diva Wedding" },
-  { id: 7, src: "/assets/img/lYW2M.jpg", alt: "Anang & Diva Wedding" },
   { id: 8, src: "/assets/img/9nLEY.jpg", alt: "Anang & Diva Wedding" },
   { id: 9, src: "/assets/img/9nLEY1.jpg", alt: "Anang & Diva Wedding" },
   { id: 10, src: "/assets/img/9nLEY11.jpg", alt: "Anang & Diva Wedding" },
@@ -144,7 +143,6 @@ const galleryImages = [
   },
   { id: 15, src: "/assets/img/DSC00868.jpg", alt: "Anang & Diva Wedding" },
   { id: 16, src: "/assets/img/DSC01503.jpg", alt: "Anang & Diva Wedding" },
-  { id: 17, src: "/assets/img/DSC00984.jpg", alt: "Anang & Diva Wedding" },
   { id: 18, src: "/assets/img/DSC00862.jpg", alt: "Anang & Diva Wedding" },
 ];
 
@@ -459,7 +457,7 @@ function InvitationContent({
     return (
       <>
         <audio ref={audioRef} loop preload="auto">
-          <source src="/assets/music/paul.mp3" type="audio/mpeg" />
+          <source src={MUSIC} type="audio/mpeg" />
         </audio>
 
         <div className="fixed inset-0 bg-black flex items-center justify-center">
@@ -655,7 +653,7 @@ function InvitationContent({
   return (
     <>
       <audio ref={audioRef} loop preload="auto">
-        <source src="/assets/music/paul.mp3" type="audio/mpeg" />
+        <source src={MUSIC} type="audio/mpeg" />
       </audio>
 
       <div className="min-h-screen bg-black flex justify-center">

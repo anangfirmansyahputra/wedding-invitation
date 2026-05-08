@@ -1,0 +1,1 @@
+export const MUSIC = '/assets/music/music.mp3'
